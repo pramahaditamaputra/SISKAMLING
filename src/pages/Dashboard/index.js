@@ -8,10 +8,39 @@ import {
   ILPulse,
 } from '../../assets';
 import {CardMenu, Gap} from '../../components';
+import {Fire} from '../../config';
 import {colors, fonts} from '../../utils';
+import {showMessage, hideMessage} from 'react-native-flash-message';
 
 const Dashboard = ({navigation}) => {
   const [countSOS, setCountSOS] = useState(0);
+  const [loading, setLoading] = useState(false);
+
+  const onSignOutHandler = () => {
+    setLoading(true);
+    Fire.auth()
+      .signOut()
+      .then((success) => {
+        showMessage({
+          message: `Logout Success!`,
+          description: `Please login back to use the app.`,
+          type: 'success',
+        });
+        setLoading(false);
+        navigation.replace('Login');
+      })
+      .catch((error) => {
+        let errorCode = error.code;
+        let errorMessage = error.message;
+        console.log(`errorCode : ${errorCode} errorMessage: ${errorMessage}`);
+        setLoading(false);
+        showMessage({
+          message: `Logout Failed!  `,
+          description: `${errorMessage}.`,
+          type: 'danger',
+        });
+      });
+  };
   const handlerSOS = () => {
     if (countSOS !== 2) {
       setCountSOS(countSOS + 1);
@@ -47,7 +76,7 @@ const Dashboard = ({navigation}) => {
           <CardMenu
             title="Sign Out"
             image={ILLogout}
-            onPress={() => navigation.replace('Login')}
+            onPress={onSignOutHandler}
           />
         </View>
         <Gap height={50} />
