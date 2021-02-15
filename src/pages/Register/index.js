@@ -23,6 +23,12 @@ const Register = ({navigation}) => {
   });
 
   const onSubmitHandler = () => {
+    const data = {
+      fullname: form.fullname,
+      email: form.email,
+      address: form.address,
+      phoneNumber: form.phoneNumber,
+    };
     setLoading(true);
     Fire.auth()
       .createUserWithEmailAndPassword(form.email, form.password)
@@ -30,12 +36,6 @@ const Register = ({navigation}) => {
         // Signed in
         // console.log(success);
         // setForm('reset');
-        const data = {
-          fullname: form.fullname,
-          email: form.email,
-          address: form.address,
-          phoneNumber: form.phoneNumber,
-        };
         Fire.database().ref(`users/${success.user.uid}/`).set(data);
         showMessage({
           message: `Registration Success!  `,
