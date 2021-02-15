@@ -44,6 +44,7 @@ const HistoryReport = ({navigation}) => {
                 event={report.event}
                 description={report.description}
                 address={report.address}
+                currentPhoto={report.photo}
               />
             ))}
         </ScrollView>

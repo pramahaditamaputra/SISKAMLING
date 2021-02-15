@@ -1,15 +1,21 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, View} from 'react-native';
 import {colors} from '../../../utils';
 import {fonts} from '../../../utils/fonts/index';
 
-const ListReport = ({fullname, address, event, description}) => {
+const ListReport = ({fullname, address, event, description, currentPhoto}) => {
   return (
     <View style={styles.container}>
       <View style={styles.wrapperChat}>
         <Text style={styles.name}>Status : {event}</Text>
         <Text style={styles.desc}>Description : {description} </Text>
         <Text style={styles.desc}>Address : {address} </Text>
+        <Image
+          style={{height: 100, width: 100}}
+          source={{
+            uri: currentPhoto,
+          }}
+        />
       </View>
     </View>
   );

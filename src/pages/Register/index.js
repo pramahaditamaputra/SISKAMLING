@@ -9,8 +9,9 @@ import {
   Loading,
 } from '../../components';
 import {Fire} from '../../config';
-import {colors, useForm} from '../../utils';
+import {colors, getData, storeData, useForm} from '../../utils';
 import {showMessage, hideMessage} from 'react-native-flash-message';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Register = ({navigation}) => {
   const [loading, setLoading] = useState(false);
@@ -29,6 +30,10 @@ const Register = ({navigation}) => {
       address: form.address,
       phoneNumber: form.phoneNumber,
     };
+    // getData().then((res) => {
+    //   console.log(`Data : ${res.phoneNumber}`);
+    // });
+
     setLoading(true);
     Fire.auth()
       .createUserWithEmailAndPassword(form.email, form.password)
@@ -37,6 +42,7 @@ const Register = ({navigation}) => {
         // console.log(success);
         // setForm('reset');
         Fire.database().ref(`users/${success.user.uid}/`).set(data);
+        storeData(data);
         showMessage({
           message: `Registration Success!  `,
           description: `Please Login to use our App.`,

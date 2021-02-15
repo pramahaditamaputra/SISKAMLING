@@ -3,12 +3,12 @@ import {Image, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import {IconAddPhoto, IconRemovePhoto, ILNullPhoto} from '../../../assets';
 import {colors, fonts} from '../../../utils';
 
-const InputPhoto = ({hasPhoto, setHasPhoto, onPress}) => {
+const InputPhoto = ({hasPhoto, setHasPhoto, onPress, currentPhoto}) => {
   return (
     <View style={styles.profile}>
       <Text style={styles.label}>Photo</Text>
       <TouchableOpacity style={styles.avatarWrapper} onPress={onPress}>
-        <Image source={ILNullPhoto} style={styles.avatar} />
+        <Image style={styles.avatar} source={currentPhoto} />
         {!hasPhoto && <IconAddPhoto style={styles.addPhoto} />}
         {hasPhoto && <IconRemovePhoto style={styles.addPhoto} />}
       </TouchableOpacity>
@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
   avatar: {
     width: 100,
     height: 100,
+    borderRadius: 100 / 2,
   },
   avatarWrapper: {
     width: 110,

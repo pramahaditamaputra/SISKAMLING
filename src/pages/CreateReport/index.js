@@ -11,12 +11,12 @@ import {
 import {colors, fonts, useForm} from '../../utils';
 import {Picker} from '@react-native-picker/picker';
 import {Fire} from '../../config';
-// import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {showMessage, hideMessage} from 'react-native-flash-message';
 import {v4 as uuidv4} from 'uuid';
+import {ILNullPhoto} from '../../assets';
 
 const CreateReport = ({navigation}) => {
-  // const [event, setEvent] = useState('');
   const [eventsCollection] = useState([
     '- Select Event -',
     'Perampokan',
@@ -25,12 +25,24 @@ const CreateReport = ({navigation}) => {
   ]);
   const [hasPhoto, setHasPhoto] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [photo, setPhoto] = useState('');
+  const [uriPhoto, setUriPhoto] = useState(ILNullPhoto);
+
   const [form, setForm] = useForm({
     fullname: '',
     event: '',
     address: '',
     description: '',
   });
+
+  const onUploadPhotoHandler = (type) => {
+    launchImageLibrary({mediaType: type}, (response) => {
+      console.log(response);
+      setHasPhoto(true);
+      setPhoto(response.fileName);
+      setUriPhoto({uri: response.uri});
+    });
+  };
 
   const onSubmitHandler = () => {
     setLoading(true);
@@ -39,6 +51,8 @@ const CreateReport = ({navigation}) => {
       event: form.event,
       address: form.address,
       description: form.description,
+      photo: photo,
+      uriPhoto: uriPhoto,
     };
 
     Fire.database()
@@ -107,9 +121,10 @@ const CreateReport = ({navigation}) => {
             />
             <Gap height={24} />
             <InputPhoto
+              currentPhoto={uriPhoto}
               hasPhoto={hasPhoto}
               setHasPhoto={setHasPhoto}
-              // onPress={}
+              onPress={() => onUploadPhotoHandler('photo')}
             />
             <Gap height={40} />
             <Button title="Submit" onPress={onSubmitHandler} />
