@@ -17,7 +17,12 @@ import {v4 as uuidv4} from 'uuid';
 
 const CreateReport = ({navigation}) => {
   // const [event, setEvent] = useState('');
-  const [eventsCollection] = useState(['Perampokan', 'Bencana', 'Pembunuhan']);
+  const [eventsCollection] = useState([
+    '- Select Event -',
+    'Perampokan',
+    'Bencana',
+    'Pembunuhan',
+  ]);
   const [hasPhoto, setHasPhoto] = useState(false);
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useForm({
