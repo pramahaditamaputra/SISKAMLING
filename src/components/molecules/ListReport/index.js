@@ -3,14 +3,14 @@ import {StyleSheet, Text, View} from 'react-native';
 import {colors} from '../../../utils';
 import {fonts} from '../../../utils/fonts/index';
 
-const ListReport = () => {
+const ListReport = ({fullname, address, event, description}) => {
   return (
     <View style={styles.container}>
       {/* <Image source={DummyDoctor2} style={styles.avatar} /> */}
       <View style={styles.wrapperChat}>
-        <Text style={styles.name}>Status : Kriminal</Text>
-        <Text style={styles.desc}>Time : 16.00 </Text>
-        <Text style={styles.desc}>Address : JL. Gracia 7 Blok F1 No 6 </Text>
+        <Text style={styles.name}>Status : {event}</Text>
+        <Text style={styles.desc}>Description : {description} </Text>
+        <Text style={styles.desc}>Address : {address} </Text>
       </View>
     </View>
   );
