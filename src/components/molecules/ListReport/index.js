@@ -6,7 +6,6 @@ import {fonts} from '../../../utils/fonts/index';
 const ListReport = ({fullname, address, event, description}) => {
   return (
     <View style={styles.container}>
-      {/* <Image source={DummyDoctor2} style={styles.avatar} /> */}
       <View style={styles.wrapperChat}>
         <Text style={styles.name}>Status : {event}</Text>
         <Text style={styles.desc}>Description : {description} </Text>

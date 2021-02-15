@@ -36,18 +36,16 @@ const HistoryReport = ({navigation}) => {
     <>
       <View style={styles.page}>
         <Header title="History Report" onPress={() => navigation.goBack()} />
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <View style={styles.content}>
-            {reports && console.log(reports)}
-            {reports &&
-              reports.map((report) => (
-                <ListReport
-                  event={report.event}
-                  description={report.description}
-                  address={report.address}
-                />
-              ))}
-          </View>
+        <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
+          {reports && console.log(reports)}
+          {reports &&
+            reports.map((report) => (
+              <ListReport
+                event={report.event}
+                description={report.description}
+                address={report.address}
+              />
+            ))}
         </ScrollView>
       </View>
       {loading && <Loading />}
