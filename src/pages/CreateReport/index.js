@@ -35,12 +35,27 @@ const CreateReport = ({navigation}) => {
     description: '',
   });
 
-  const onUploadPhotoHandler = (type) => {
-    launchImageLibrary({mediaType: type}, (response) => {
-      console.log(response);
-      setHasPhoto(true);
-      setPhoto(response.fileName);
-      setUriPhoto({uri: response.uri});
+  const optionsImage = {
+    mediaType: 'photo',
+    includeBase64: true,
+    quality: 0.5,
+    maxWidth: 200,
+    maxHeight: 200,
+  };
+
+  const onUploadPhotoHandler = () => {
+    launchCamera(optionsImage, (response) => {
+      if (response.didCancel) {
+        showMessage({
+          message: 'cancel',
+          type: 'danger',
+        });
+      } else {
+        console.log(response);
+        setHasPhoto(true);
+        setPhoto(`data:${response.type};base64, ${response.base64}`);
+        setUriPhoto({uri: response.uri});
+      }
     });
   };
 
@@ -124,7 +139,7 @@ const CreateReport = ({navigation}) => {
               currentPhoto={uriPhoto}
               hasPhoto={hasPhoto}
               setHasPhoto={setHasPhoto}
-              onPress={() => onUploadPhotoHandler('photo')}
+              onPress={onUploadPhotoHandler}
             />
             <Gap height={40} />
             <Button title="Submit" onPress={onSubmitHandler} />

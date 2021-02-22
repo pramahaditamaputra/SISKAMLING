@@ -24,6 +24,7 @@ const HistoryReport = ({navigation}) => {
             description: data.description,
             event: data.event,
             fullname: data.fullname,
+            photo: data.photo,
           });
         });
         console.log(tutorials);
